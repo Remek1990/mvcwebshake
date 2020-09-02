@@ -6,6 +6,8 @@ namespace MyProject\Controllers;
 
 use MyProject\Services\Db;
 use MyProject\View\View;
+use MyProject\Models\Articles\Article;
+use MyProject\Models\Users\User;
 
 class ArticlesController
 {
@@ -23,16 +25,18 @@ class ArticlesController
 
     public function view(int $articleId)
     {
-        $result = $this->db->query(
-            'SELECT * FROM `articles` WHERE id = :id;',
-            [':id' => $articleId]
-        );
+        $article = Article::getById($articleId);
 
-        if ($result === []) {
+        if ($article === []) {
             $this->view->renderHtml('errors/404.php', [], 404);
             return;
         }
 
-        $this->view->renderHtml('articles/view.php', ['article' => $result[0]]);
+        $this->view->renderHtml(
+            'articles/view.php',
+            [
+                'article'   => $article
+            ]
+        );
     }
 }

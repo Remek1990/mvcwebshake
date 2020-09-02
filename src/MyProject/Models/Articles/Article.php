@@ -2,13 +2,12 @@
 
 namespace MyProject\Models\Articles;
 
+use MyProject\Models\ActiveRecordEntity;
 use \MyProject\Models\Users\User;
+use MyProject\Services\Db;
 
-class Article
+class Article extends ActiveRecordEntity
 {
-    /** @var int */
-    private $id;
-
     /** @var string */
     private $name;
 
@@ -28,14 +27,6 @@ class Article
     }
 
     /**
-     * @return int
-     */
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    /**
      * @return string
      */
     public function getName(): string
@@ -51,8 +42,19 @@ class Article
         return $this->text;
     }
 
-    private function underscoreToCamelCase(string $source): string
+    /**
+     * @return string
+     */
+    protected static function getTableName(): string
     {
-        return lcfirst(str_replace('_', '', ucwords($source, '_')));
+        return 'articles';
+    }
+
+    /**
+     * @return int
+     */
+    public function getAuthor(): User
+    {
+        return User::getById($this->authorId);
     }
 }
