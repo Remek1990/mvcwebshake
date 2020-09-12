@@ -9,16 +9,16 @@ use MyProject\Services\Db;
 class Article extends ActiveRecordEntity
 {
     /** @var string */
-    private $name;
+    protected $name;
 
     /** @var string */
-    private $text;
+    protected $text;
 
     /** @var int */
-    private $authorId;
+    protected $authorId;
 
     /** @var string */
-    private $createdAt;
+    protected $createdAt;
 
     public function __set($name, $value)
     {
@@ -40,6 +40,46 @@ class Article extends ActiveRecordEntity
     public function getText(): string
     {
         return $this->text;
+    }
+
+    /**
+     * @return void
+     */
+    public function setName(string $name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return void
+     */
+    public function setText(string $text)
+    {
+        $this->text = $text;
+    }
+
+    /**
+     * @return void
+     */
+    public function setAuthor(User $author): void
+    {
+        $this->authorId = $author->getId();
+    }
+
+    /**
+     * @return void
+     */
+    public function setId(int $id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return void
+     */
+    public function setCreatedAt(string $createdAt)
+    {
+        $this->createdAt = $createdAt;
     }
 
     /**
