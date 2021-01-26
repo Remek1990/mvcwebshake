@@ -8,16 +8,11 @@ use MyProject\View\View;
 use MyProject\Models\Articles\Article;
 use MyProject\Models\Users\User;
 use MyProject\Exceptions\NotFoundException;
+use MyProject\Services\UsersAuthService;
 
-class ArticlesController
+
+class ArticlesController extends AbstractController
 {
-    /*@var View*/
-    private $view;
-
-    public function __construct()
-    {
-        $this->view = new View(__DIR__ . '/../../../templates');
-    }
 
     public function view(int $articleId)
     {
